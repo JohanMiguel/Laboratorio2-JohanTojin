@@ -10,7 +10,8 @@ Esta API está diseñada para gestionar citas para adopciones de mascotas. Permi
 
 ### 1. **Actualizar Foto del Usuario**
    - **Descripción:** Permite actualizar la foto de perfil de un usuario.
-   - **URL:** `/api/appointments/updateProfilePicture`
+
+   - **URL:** `/adoptionSystem/v1/auth/updateProfilePicture`
    - **Método:** `PATCH`
    - **Estado:** [ ] Pendiente | [x] Completado
 
@@ -18,7 +19,8 @@ Esta API está diseñada para gestionar citas para adopciones de mascotas. Permi
 
 ### 2. **Listar Citas**
    - **Descripción:** Obtiene una lista de todas las citas de un usuario.
-   - **URL:** `/api/appointments/appointment/`
+
+   - **URL:** `/adoptionSystem/v1/appointment/`
    - **Método:** `POST`
    - **Estado:** [ ] Pendiente | [x] Completado
 
@@ -26,7 +28,8 @@ Esta API está diseñada para gestionar citas para adopciones de mascotas. Permi
 
 ### 3. **Actualizar Cita**
    - **Descripción:** Actualiza una cita existente.
-   - **URL:** `/api/appointments/appointment/actualizarAppoinment`
+
+   - **URL:** `/adoptionSystem/v1/appointment/actualizarAppoinment`
    - **Método:** `PUT`
    - **Cuerpo de la solicitud:**
      ```json
@@ -42,7 +45,8 @@ Esta API está diseñada para gestionar citas para adopciones de mascotas. Permi
 
 ### 4. **Cancelar Cita**
    - **Descripción:** Cancela una cita existente.
-   - **URL:** `/api/appointments/appointment/cancelarAppoinment`
+   
+   - **URL:** `/adoptionSystem/v1/appointment/cancelarAppoinment`
    - **Método:** `PATCH`
    - **Cuerpo de la solicitud:**
      ```json
@@ -58,3 +62,16 @@ Esta API está diseñada para gestionar citas para adopciones de mascotas. Permi
 
 
 ---
+### Uso de middlewares
+### Uso de controladores
+### Uso de archivo de rutas para cada entidad
+
+---
+
+## Derechos de Autor
+
+© 2025 Johan Tojin. Todos los derechos reservados.  
+Este proyecto fue dato en la mayor parte realizado por Braulio Echeverria, consistiendo como un proyecto que sus 
+alumnos tubieron que realizar en su devido tiempo, usando dependencias externas para el funcionamiento de esa API
+---
+
