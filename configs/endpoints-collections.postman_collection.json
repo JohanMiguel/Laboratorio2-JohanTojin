@@ -464,7 +464,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"date\": \"2023-10-1\",\r\n  \"status\": \"CREATED\",\r\n  \"pet\": \"67aaac25b90481d1a3fc802b\",\r\n  \"user\": \"67aa9f505603d9a8ae89706f\"\r\n}",
+							"raw": "{\r\n  \"date\": \"2023-10-1\",\r\n  \"status\": \"CREATED\",\r\n  \"pet\": \"67aa9f505603d9a8ae89706f\",\r\n  \"user\": \"67aaab15ee63f7afb7ef158f\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -493,9 +493,16 @@
 				},
 				{
 					"name": "Listar citas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
 						"url": {
 							"raw": "http://127.0.0.1:3001/adoptionSystem/v1/appointment/",
 							"protocol": "http",
@@ -519,11 +526,11 @@
 				{
 					"name": "Actualizar cita",
 					"request": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\":\"2025-1-1\",\r\n    \"pet\":\"67aa9f505603d9a8ae89706f\",\r\n    \"user\":\"67aa9bf55603d9a8ae89706a\"\r\n}",
+							"raw": "{\r\n    \"date\":\"2025-1-10\",\r\n    \"pet\": \"67aa9f505603d9a8ae89706f\",\r\n    \"user\": \"67aaab15ee63f7afb7ef158f\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -531,7 +538,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3001/adoptionSystem/v1/appointment/actualizarAppoinment/67aad1705f024ffd7237ff57",
+							"raw": "http://127.0.0.1:3001/adoptionSystem/v1/appointment/actualizarAppoinment/67aad501866ab33325a1aa73",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -545,7 +552,7 @@
 								"v1",
 								"appointment",
 								"actualizarAppoinment",
-								"67aad1705f024ffd7237ff57"
+								"67aad501866ab33325a1aa73"
 							]
 						}
 					},
@@ -561,7 +568,7 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://127.0.0.1:3001/adoptionSystem/v1/appointment/cancelarAppoinment/67aaa0da49efedd38ab7f558",
+							"raw": "http://127.0.0.1:3001/adoptionSystem/v1/appointment/cancelarAppoinment/67aad1705f024ffd7237ff57",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -575,7 +582,7 @@
 								"v1",
 								"appointment",
 								"cancelarAppoinment",
-								"67aaa0da49efedd38ab7f558"
+								"67aad1705f024ffd7237ff57"
 							]
 						}
 					},

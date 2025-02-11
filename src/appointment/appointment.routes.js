@@ -7,6 +7,6 @@ const router = Router();
 // Ruta para crear cita
 router.post("/createAppointment", createAppointmentValidator, saveAppointment);
 router.get("/", getAppoiment);
-router.patch("/actualizarAppoinment/:uid", updateAppointmentValidator, actualizarAppoinment);
+router.put("/actualizarAppoinment/:uid", updateAppointmentValidator, actualizarAppoinment);
 router.patch("/cancelarAppoinment/:uid", cancelarAppointment);
 export default router;

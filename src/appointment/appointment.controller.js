@@ -90,23 +90,21 @@ export const getAppoiment = async (req, res) => {
 
 export const actualizarAppoinment = async (req, res) => {
   try {
-      const { uid } = req.params;
-      const  data  = req.body;
-      
-      const appointment = await Appointment.findByIdAndUpdate(uid, data, { new: true });
-
-      res.status(200).json({
-          success: true,
-          msg: 'La cita Actualizada',
-          appointment,
-      });
-  } catch (err) {
-      res.status(500).json({
-          success: false,
-          msg: 'Error al actualizar la cita',
-          error: err.message
-      });
-  }
+    const { uid } = req.params;
+    const  data  = req.body;
+    const appointments = await Appointment.findByIdAndUpdate(uid, data, { new: true });
+    res.status(200).json({
+        success: true,
+        msg: 'La cita Actualizada',
+        appointments,
+    });
+} catch (err) {
+    res.status(500).json({
+        success: false,
+        msg: 'Error al actualizar la cita',
+        error: err.message
+    });
+}
 }
 
 export const cancelarAppointment = async (req, res) => {
