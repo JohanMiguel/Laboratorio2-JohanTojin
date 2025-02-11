@@ -62,134 +62,49 @@ export const saveAppointment = async (req, res) => {
 
 /* LISTAR CITAS */
 export const getAppointment = async (req, res) => {
-  const { limite = 10, desde = 0 } = req.query;
-  const query = { status: true };
+  try{
+    const { limite = 5, desde = 0 } = req.query
+    const query = { status: "CREATED" }
 
-  try {
-    const appointments = await Appointment.find(query)
-      .skip(Number(desde))
-      .limit(Number(limite));
+    const [total, appointments ] = await Promise.all([
+        Appointment.countDocuments(query),
+        Appointment.find(query)
+            .skip(Number(desde))
+            .limit(Number(limite))
+    ])
 
-    const appointmentsWithOwnerNames = await Promise.all(appointments.map(async (appointment) => {
-      const owner = await User.findById(appointment.keeper); 
-      return {
-        ...appointment.toObject(),
-        keeper: owner ? owner.nombre : "Propietario no encontrado",
-      };
-    }));
-
-    const total = await Appointment.countDocuments(query);
-
-    res.status(200).json({
-      success: true,
-      total,
-      appointments: appointmentsWithOwnerNames,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error al obtener las citas',
-      error,
-    });
-  }
+    return res.status(200).json({
+        success: true,
+        total,
+        appointments
+    })
+}catch(err){
+    return res.status(500).json({
+        success: false,
+        message: "Error al obtener los las citas",
+        error: err.message
+    })
+}
 }
 
-/* ACTUALIZAR CITA */
-export const updateAppointment = async (req, res) => {
+
+export const actualizarAppoinment = async (req, res) => {
   try {
-    const { uid } = req.params;
-    const { date, status, pet, user } = req.body; 
+      const { uid } = req.params;
+      const  data  = req.body;
+      
+      const appointment = await Appointment.findByIdAndUpdate(uid, data, { new: true });
 
-    // Valida la nueva fecha
-    const isoDate = new Date(date);
-    if (isNaN(isoDate.getTime())) {
-      return res.status(400).json({
-        success: false,
-        msg: "Fecha inválida",
+      res.status(200).json({
+          success: true,
+          msg: 'La cita Actualizada',
+          appointment,
       });
-    }
-
-    // Verifica si la cita existe
-    const appointment = await Appointment.findById(uid);
-    if (!appointment) {
-      return res.status(404).json({
-        success: false,
-        msg: "Cita no encontrada",
+  } catch (err) {
+      res.status(500).json({
+          success: false,
+          msg: 'Error al actualizar la cita',
+          error: err.message
       });
-    }
-
-    // Verificar si la mascota existe
-    const petExists = await Pet.findById(pet);
-    if (!petExists) {
-      return res.status(404).json({
-        success: false,
-        msg: "No se encontró la mascota",
-      });
-    }
-
-   
-
-    // Actualizar la cita
-    const updatedAppointment = await Appointment.findByIdAndUpdate(
-      { date: isoDate, status, pet, user }, 
-      { new: true }
-    );
-    res.status(200).json({
-      success: true,
-      msg: "Cita actualizada con éxito",
-      updatedAppointment,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      msg: "Error al actualizar la cita",
-      error: error.message,
-    });
   }
-};
-/* CANCELAR CITA */
-export const cancelAppointment = async (req, res) => {
-  try {
-    const { uid } = req.params; 
-
-    const appointment = await Appointment.findById(uid);
-    if (!appointment) {
-      return res.status(404).json({
-        success: false,
-        msg: "Cita no encontrada",
-      });
-    }
-
-    if (appointment.status === 'CANCELLED') {
-      return res.status(400).json({
-        success: false,
-        msg: "La cita ya está cancelada",
-      });
-    }
-
-    if (appointment.status === 'COMPLETED') {
-      return res.status(400).json({
-        success: false,
-        msg: "La cita ya está completada y no puede cancelarse",
-      });
-    }
-
-    appointment.status = 'CANCELLED';
-    await appointment.save(); 
-
-    // Respuesta exitosa
-    res.status(200).json({
-      success: true,
-      msg: "Cita cancelada con éxito",
-      appointment,
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      success: false,
-      msg: "Error al cancelar la cita",
-      error: error.message,
-    });
-  }
-};
+}
