@@ -61,30 +61,30 @@ export const saveAppointment = async (req, res) => {
 }
 
 /* LISTAR CITAS */
-export const getAppointment = async (req, res) => {
+export const getAppoiment = async (req, res) => {
   try{
-    const { limite = 5, desde = 0 } = req.query
-    const query = { status: "CREATED" }
+      const { limite = 5, desde = 0 } = req.query
+      const query = { status: "CREATED" }
 
-    const [total, appointments ] = await Promise.all([
-        Appointment.countDocuments(query),
-        Appointment.find(query)
-            .skip(Number(desde))
-            .limit(Number(limite))
-    ])
+      const [total, appointments ] = await Promise.all([
+          Appointment.countDocuments(query),
+          Appointment.find(query)
+              .skip(Number(desde))
+              .limit(Number(limite))
+      ])
 
-    return res.status(200).json({
-        success: true,
-        total,
-        appointments
-    })
-}catch(err){
-    return res.status(500).json({
-        success: false,
-        message: "Error al obtener los las citas",
-        error: err.message
-    })
-}
+      return res.status(200).json({
+          success: true,
+          total,
+          appointments
+      })
+  }catch(err){
+      return res.status(500).json({
+          success: false,
+          message: "Error al obtener los las citas",
+          error: err.message
+      })
+  }
 }
 
 
